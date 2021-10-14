@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/MenaceMint/static/css/main.9a6771f2.chunk.css",
-    "main.js": "/MenaceMint/static/js/main.a7f77a12.chunk.js",
-    "main.js.map": "/MenaceMint/static/js/main.a7f77a12.chunk.js.map",
+    "main.js": "/MenaceMint/static/js/main.b1802b56.chunk.js",
+    "main.js.map": "/MenaceMint/static/js/main.b1802b56.chunk.js.map",
     "runtime-main.js": "/MenaceMint/static/js/runtime-main.87e6e997.js",
     "runtime-main.js.map": "/MenaceMint/static/js/runtime-main.87e6e997.js.map",
-    "static/js/2.c08bff81.chunk.js": "/MenaceMint/static/js/2.c08bff81.chunk.js",
-    "static/js/2.c08bff81.chunk.js.map": "/MenaceMint/static/js/2.c08bff81.chunk.js.map",
+    "static/js/2.f4c7b1cf.chunk.js": "/MenaceMint/static/js/2.f4c7b1cf.chunk.js",
+    "static/js/2.f4c7b1cf.chunk.js.map": "/MenaceMint/static/js/2.f4c7b1cf.chunk.js.map",
     "index.html": "/MenaceMint/index.html",
     "static/css/main.9a6771f2.chunk.css.map": "/MenaceMint/static/css/main.9a6771f2.chunk.css.map",
-    "static/js/2.c08bff81.chunk.js.LICENSE.txt": "/MenaceMint/static/js/2.c08bff81.chunk.js.LICENSE.txt"
+    "static/js/2.f4c7b1cf.chunk.js.LICENSE.txt": "/MenaceMint/static/js/2.f4c7b1cf.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.87e6e997.js",
-    "static/js/2.c08bff81.chunk.js",
+    "static/js/2.f4c7b1cf.chunk.js",
     "static/css/main.9a6771f2.chunk.css",
-    "static/js/main.a7f77a12.chunk.js"
+    "static/js/main.b1802b56.chunk.js"
   ]
 }
