@@ -3,6 +3,8 @@ import getWeb3 from './GetWeb3'
 import Pixatar from './contracts/Pixatar.json'
 import './App.css';
 
+import SideScreen from './SideScreen.js'
+
 class App extends Component {
 
   async componentDidMount() {
@@ -74,63 +76,16 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      accounts: null,
+      accounts: [],
       contract: null,
       totalSupply: 0,
-      pixatars: []
+      pixatars: [],
+      sideSign: SideScreen(),
     }
   }
 
   render() {
-    return (
-      <div>
-        <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-            Pixatar
-          <ul className="navbar-nav px-3">
-            <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
-              <small className="text-white"><span id="account"></span></small>
-            </li>
-          </ul>
-        </nav>
-        <div className="container-fluid mt-5">
-          <div className="row">
-          <main role="main" className="col-lg-12 d-flex text-center">
-              <div className="content mr-auto ml-auto">
-                <h1>MINT</h1>
-                <form onSubmit={(event) => {
-                  event.preventDefault()
-                  const pixatar = this.pixatar.value
-                  this.mint(pixatar)
-                }}>
-                  <input
-                    type='text'
-                    className='form-control mb-1'
-                    placeholder='e.g. #FFFFFF'
-                    ref={(input) => { this.pixatar = input }}
-                  />
-                  <input
-                    type='submit'
-                    className='btn btn-block btn-primary'
-                    value='MINT'
-                  />
-                </form>
-              </div>
-            </main>
-          </div>
-          <hr/>
-          <div className="row text-center">
-            { this.state.pixatars.map((pixatar, key) => {
-              return(
-                <div key={key} className="col-md-3 mb-3">
-                  <div className="token" style={{ backgroundColor: pixatar }}></div>
-                  <div>{pixatar}</div>
-                </div>
-              )
-            })}
-          </div>
-        </div>
-      </div>
-    );
+    return SideScreen()
   }
 }
 export default App;
