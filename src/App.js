@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import getWeb3 from './GetWeb3'
 import Pixatar from './contracts/Pixatar.json'
 import './App.css';
 
 import SideScreen from './SideScreen.js'
+import FullScreen from './FullScreen.js'
 
 class App extends Component {
 
@@ -85,7 +86,7 @@ class App extends Component {
   }
 
   render() {
-    return SideScreen()
+    return FullScreen()
   }
 }
 export default App;

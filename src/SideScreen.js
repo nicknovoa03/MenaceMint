@@ -28,11 +28,9 @@ function Copyright(props) {
   );
 }
 
-function valueText(value){
+function valueText(value) {
   return `${value}`;
 }
-
-const theme = createTheme();
 
 const darkTheme = createTheme({
   palette: {
@@ -52,7 +50,7 @@ const MintButton = styled(Button)({
   border: '1px solid',
   lineHeight: 1.5,
   backgroundColor: 'grey',
-    fontFamily: [
+  fontFamily: [
     'Roboto',
   ].join(','),
   '&:hover': {
@@ -95,47 +93,47 @@ export default function SideScreen() {
           }}
         />
 
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={5} sx={{backgroundColor:'background.paper'}} Square>
-            <Box
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={5} sx={{ backgroundColor: 'background.paper' }} Square>
+          <Box
+            sx={{
+              my: 2,
+              mx: 4,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Fab sx={{ my: 4 }} variant="extended" size="Medium" color="action.active" aria-label="add">
+              <AccountBalanceWalletIcon sx={{ mr: 1 }} />
+              Connect Wallet
+            </Fab>
+            <Avatar color='text.primary' sx={{ m: 2 }}>
+              <HttpsIcon color='text.secondary' />
+            </Avatar>
+            <Typography component="h1" variant="Title" fontWeight="fontWeightBold" color="White">
+              MINT MENACE
+            </Typography>
+            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+              <Slider
+                aria-label="Mint Amount"
+                defaultValue={0}
+                getAriaValueText={valueText}
+                valueLabelDisplay="auto"
+                step={1}
+                marks
+                min={0}
+                max={2}
                 sx={{
-                my: 2,
-                mx: 4,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
+                  color: 'text.primary'
                 }}
-            >
-                <Fab sx={{ my:4 }} variant="extended" size="Medium" color="action.active" aria-label="add">
-                    <AccountBalanceWalletIcon sx={{ mr: 1 }} />
-                    Connect Wallet
-                </Fab>
-                <Avatar color='text.primary' sx={{ m:2}}>
-                    <HttpsIcon color='text.secondary'/>
-                </Avatar>
-                <Typography component="h1" variant="Title" fontWeight="fontWeightBold" color="White">
-                    MINT MENACE
-                </Typography>
-                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-                <Slider
-                    aria-label="Mint Amount"
-                    defaultValue={0}
-                    getAriaValueText={valueText}
-                    valueLabelDisplay="auto"
-                    step={1}
-                    marks
-                    min={0}
-                    max={2}
-                    sx={{
-                      color:'text.primary'
-                    }}
-                />
-                <MintButton
-                    fullWidth
-                    variant="contained"
-                    >
-                    Mint
-                </MintButton>
-                <Copyright sx={{ mt: 1 }} />
+              />
+              <MintButton
+                fullWidth
+                variant="contained"
+              >
+                Mint
+              </MintButton>
+              <Copyright sx={{ mt: 1 }} />
             </Box>
           </Box>
         </Grid>
