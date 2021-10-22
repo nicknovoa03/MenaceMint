@@ -18,7 +18,7 @@ function mint(mintAmount, contract, account) {
     contract.methods.mint(mintAmount.toString()).send({from: account})
 }
 
-function StateScreen() {
+function FullScreenHook() {
 
     const [account, contract, contractAddress] = AsyncConnect();
     const [mintAmount, setMintAmount] = useState();
@@ -198,4 +198,4 @@ function StateScreen() {
     );
 }
 
-export default StateScreen;
+export default FullScreenHook;

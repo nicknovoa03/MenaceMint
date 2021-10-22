@@ -1,10 +1,7 @@
 import { Component } from 'react';
 import getWeb3 from './GetWeb3'
 import Pixatar from './contracts/Pixatar.json'
-
-
 import './App.css';
-
 
 class App extends Component {
 

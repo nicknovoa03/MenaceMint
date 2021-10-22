@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
-import StateScreen from './StateScreen'
+import HookApp from './FullScreenHook'
 
 ReactDOM.render(
   <React.StrictMode>
-      <StateScreen />
+      <HookApp />
   </React.StrictMode>,
   document.getElementById('root')
 );
