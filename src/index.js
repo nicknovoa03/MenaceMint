@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
-import FullScreen from './FullScreen'
+import StateScreen from './StateScreen'
 
 ReactDOM.render(
   <React.StrictMode>
-      <FullScreen />
+      <StateScreen />
   </React.StrictMode>,
   document.getElementById('root')
 );

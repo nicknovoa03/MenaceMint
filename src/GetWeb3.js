@@ -1,4 +1,7 @@
+import { useState, useEffect } from 'react';
+import Pixatar from './contracts/Pixatar.json'
 import Web3 from "web3";
+
 
 const getWeb3 = () =>
   new Promise((resolve, reject) => {
@@ -35,4 +38,47 @@ const getWeb3 = () =>
     });
   });
 
-export default getWeb3;
+  function AsyncConnect() {
+    const [account, setAccount] = useState();
+    const [contract, setContract] = useState();
+    const [contractAddress, setContractAddress] = useState();
+    async function connectWeb3() {
+        try {
+            // Get network provider and web3 instance.
+            const web3 = await getWeb3();
+
+            // Use web3 to get the user's accounts.
+            const accounts = await web3.eth.getAccounts();
+            console.log("accounts:", accounts);
+
+            // Get the contract instance.
+            const networkId = await web3.eth.net.getId();
+            console.log("network:", networkId);
+            const deployedNetwork = Pixatar.networks[networkId];
+            const contract = new web3.eth.Contract(
+                Pixatar.abi,
+                deployedNetwork && deployedNetwork.address,
+            );
+            console.log("contract address:", contract)
+
+            // Set accounts, contract, and total supply to the state
+            setAccount(accounts[0]);
+            setContract(contract);
+            setContractAddress(contract._address);
+        } catch (error) {
+            // Catch any errors for any of the above operations.
+            alert(
+                `Failed to load web3, accounts, or contract. Check console for details.`,
+            );
+            console.error(error);
+        }
+    }
+
+    useEffect(() => {
+        connectWeb3();
+    }, []);
+
+    return [account, contract, contractAddress];
+}
+
+export default AsyncConnect;
