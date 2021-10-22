@@ -12,7 +12,10 @@ import Fab from '@mui/material/Fab'
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import Slider from '@mui/material/Slider';
 import MintBackground from './MenaceSamples/MintBackground.jpg'
-
+import getWeb3 from './GetWeb3'
+import { Component } from 'react';
+import Pixatar from './contracts/Pixatar.json'
+//import Menace from './contracts/Menace.json'
 
 function Copyright(props) {
     return (
@@ -25,10 +28,6 @@ function Copyright(props) {
             {'.'}
         </Typography>
     );
-}
-
-function valueText(value) {
-    return `${value}`;
 }
 
 const darkTheme = createTheme({
@@ -64,63 +63,132 @@ const MintButton = styled(Button)({
     }
 });
 
-export default function FullScreen() {
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
-        console.log({
-            email: data.get('Menace Amount'),
-        });
-    };
+class FullScreen extends Component {
 
-    return (
-        <ThemeProvider theme={darkTheme}>
-            <Grid container component="main" sx={{ height: '100vh' }}>
-                <CssBaseline />
-                <Grid
-                    item
-                    xs={12}
-                    sm={12}
-                    md={12}
+    constructor(props) {
+        super(props)
+        this.state = {
+            accounts: [],
+            contract: null,
+            pixatars: []
+        }
+    }
+    
+    async componentDidMount(){
+        await this.connectWeb3()
+    }
+    async connectWeb3(){
+        try {
+            // Get network provider and web3 instance.
+            const web3 = await getWeb3();
+
+            // Use web3 to get the user's accounts.
+            const accounts = await web3.eth.getAccounts();
+            console.log("accounts:", accounts);
+
+            // Get the contract instance.
+            const networkId = await web3.eth.net.getId();
+            console.log("network:", networkId);
+            const deployedNetwork = Pixatar.networks[networkId];
+            const contract = new web3.eth.Contract(
+                Pixatar.abi,
+                deployedNetwork && deployedNetwork.address,
+            );
+            console.log("contract:", contract)
+
+            // Set accounts, contract, and total supply to the state
+            this.setState({ accounts: accounts, contract: contract});
+        } catch (error) {
+            // Catch any errors for any of the above operations.
+            alert(
+                `Failed to load web3, accounts, or contract. Check console for details.`,
+            );
+            console.error(error);
+        }
+    }
+
+    mint = (pixatar) => {
+        console.log(pixatar)
+        this.state.contract.methods.mint(pixatar).send({ from: this.state.accounts[0] })
+            .once('receipt', (receipt) => {
+                this.setState({
+                    pixatars: [...this.state.pixatars, pixatar]
+                })
+            })
+    }
+
+    render() {
+        return (
+            <ThemeProvider theme={darkTheme}>
+                <Grid container component="main"
                     sx={{
+                        height: '100vh',
                         backgroundImage: `url(${MintBackground})`,
                         backgroundRepeat: 'no-repeat',
                         backgroundColor: 'Transparent',
                         backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                    }}
-                >
-                    <Container
-                        component="main"
-                        maxWidth="xs"
+                        backgroundPosition: 'center'
+                    }}>
+                    <CssBaseline />
+                    <Grid
+                        item
+                        container
+                        direction="column"
+                        alignItems="flex-end"
+                        justify="flex-start"
                         sx={{
-                            marginTop: 8,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center'
-                        }}>
-                        <CssBaseline />
-                        <Box
+                            p: 4,
+                            m: -2
+                        }}
+                    >
+                        <Fab
+                            sx={{ my: 4, bgcolor: 'palette.action.active' }}
+                            variant="circular"
+                            size="Medium"
+                            >
+                            <AccountBalanceWalletIcon />
+                        </Fab>
+                    </Grid>
+                    <Grid
+                        item
+                        container
+                        direction="column"
+                        display="flex"
+                        justify="center"
+                    >
+                        <Container
                             sx={{
-                                marginTop: 8,
+                                width: 500,
+                                height: 230,
+                                backgroundColor: '#121212',
+                                marginTop: -13,
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'center',
+                                borderRadius: 8,
+                                opacity: [1, 1, .92],
                             }}
                         >
-                            <Fab sx={{ my: 4, bgcolor: 'palette.action.active' }} variant="extended" size="Medium">
-                                <AccountBalanceWalletIcon sx={{ mr: 1 }} />
-                                Connect Wallet
-                            </Fab>
-                            <Typography component="h1" variant="Title" fontWeight="fontWeightBold" color="White">
-                                MINT MENACE
-                            </Typography>
-                            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                            <Box
+                                component="form"
+                                noValidate
+                                sx={{
+                                    mt: 1,
+                                }}>
+                                <Typography
+                                    component="h1"
+                                    variant="Title"
+                                    fontWeight="fontWeightBold"
+                                    color="White"
+                                    align="center"
+                                    display='flex'
+                                    justifyContent='center'
+                                >
+                                    ENTER THE MENACE WORLD
+                                </Typography>
                                 <Slider
                                     aria-label="Mint Amount"
                                     defaultValue={0}
-                                    getAriaValueText={valueText}
                                     valueLabelDisplay="auto"
                                     step={1}
                                     marks
@@ -133,16 +201,32 @@ export default function FullScreen() {
                                 <MintButton
                                     fullWidth
                                     variant="contained"
+                                    onClick={console.log('#329833')}
                                 >
                                     Mint
                                 </MintButton>
+                                <Typography
+                                    component="h4"
+                                    variant="Subtitle"
+                                    fontWeight="light"
+                                    color="White"
+                                    align="center"
+                                    display='flex'
+                                    justifyContent='center'
+                                    sx={{
+                                        m: 1
+                                    }}
+                                >
+                                    Connected Wallet: {this.state.accounts}
+                                </Typography>
                                 <Copyright sx={{ mt: 1 }} />
                             </Box>
-                        </Box>
-                    </Container>
+                        </Container>
+                    </Grid>
                 </Grid>
-
-            </Grid>
-        </ThemeProvider>
-    );
+            </ThemeProvider>
+        );
+    }
 }
+
+export default FullScreen;
