@@ -1,20 +1,22 @@
 {
   "files": {
-    "main.css": "/MenaceMint/static/css/main.9a6771f2.chunk.css",
-    "main.js": "/MenaceMint/static/js/main.b1802b56.chunk.js",
-    "main.js.map": "/MenaceMint/static/js/main.b1802b56.chunk.js.map",
+    "main.css": "/MenaceMint/static/css/main.fa00e0d7.chunk.css",
+    "main.js": "/MenaceMint/static/js/main.bc779217.chunk.js",
+    "main.js.map": "/MenaceMint/static/js/main.bc779217.chunk.js.map",
     "runtime-main.js": "/MenaceMint/static/js/runtime-main.87e6e997.js",
     "runtime-main.js.map": "/MenaceMint/static/js/runtime-main.87e6e997.js.map",
-    "static/js/2.f4c7b1cf.chunk.js": "/MenaceMint/static/js/2.f4c7b1cf.chunk.js",
-    "static/js/2.f4c7b1cf.chunk.js.map": "/MenaceMint/static/js/2.f4c7b1cf.chunk.js.map",
+    "static/js/2.00d2eab3.chunk.js": "/MenaceMint/static/js/2.00d2eab3.chunk.js",
+    "static/js/2.00d2eab3.chunk.js.map": "/MenaceMint/static/js/2.00d2eab3.chunk.js.map",
     "index.html": "/MenaceMint/index.html",
-    "static/css/main.9a6771f2.chunk.css.map": "/MenaceMint/static/css/main.9a6771f2.chunk.css.map",
-    "static/js/2.f4c7b1cf.chunk.js.LICENSE.txt": "/MenaceMint/static/js/2.f4c7b1cf.chunk.js.LICENSE.txt"
+    "static/css/main.fa00e0d7.chunk.css.map": "/MenaceMint/static/css/main.fa00e0d7.chunk.css.map",
+    "static/js/2.00d2eab3.chunk.js.LICENSE.txt": "/MenaceMint/static/js/2.00d2eab3.chunk.js.LICENSE.txt",
+    "static/media/1.1300d482.png": "/MenaceMint/static/media/1.1300d482.png",
+    "static/media/MintBackground.84661a03.jpg": "/MenaceMint/static/media/MintBackground.84661a03.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.87e6e997.js",
-    "static/js/2.f4c7b1cf.chunk.js",
-    "static/css/main.9a6771f2.chunk.css",
-    "static/js/main.b1802b56.chunk.js"
+    "static/js/2.00d2eab3.chunk.js",
+    "static/css/main.fa00e0d7.chunk.css",
+    "static/js/main.bc779217.chunk.js"
   ]
 }
