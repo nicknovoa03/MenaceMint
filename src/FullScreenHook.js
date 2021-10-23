@@ -1,27 +1,31 @@
 import { useState } from 'react';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 
-import { styled } from '@mui/material/styles';
 import Slider from '@mui/material/Slider';
 import MintBackground from './MenaceSamples/MintBackground.jpg'
-import AsyncConnect from './GetWeb3'
 
-function mint(mintAmount, contract, account) {
-    console.log("Mint ", mintAmount," Menaces");
-    contract.methods.mint(mintAmount.toString()).send({from: account})
-}
+import AsyncConnect from './AsyncConnect';
 
 function FullScreenHook() {
 
-    const [account, contract, contractAddress] = AsyncConnect();
+    const [wallet, menaceContract, menaceAddress, web3] = AsyncConnect();
     const [mintAmount, setMintAmount] = useState();
+
+    async function mint(mintAmount, contract, wallet) {
+        console.log("Mint ", mintAmount, " Menaces");
+        const gasprice = await web3.eth.getGasPrice()
+        const price = mintAmount * 10**18;
+        console.log("Price:",price)
+        // call transfer function
+        menaceContract.methods.mintMenace(mintAmount.toString()).send({ from: wallet, gasprice: gasprice, value: price})
+    }
 
     function handleSlider(event, value) {
         event.preventDefault();
@@ -30,7 +34,7 @@ function FullScreenHook() {
 
     function handleMint(event) {
         event.preventDefault();
-        mint(mintAmount, contract, account);
+        mint(mintAmount, menaceContract, wallet);
     }
 
     const darkTheme = createTheme({
@@ -143,7 +147,7 @@ function FullScreenHook() {
                                 ENTER THE MENACE WORLD
                             </Typography>
                             <Slider
-                                onChangeCommitted={(events, value) => handleSlider(events,value)}
+                                onChangeCommitted={(events, value) => handleSlider(events, value)}
                                 aria-label="Mint Amount"
                                 defaultValue={0}
                                 valueLabelDisplay="auto"
@@ -174,7 +178,7 @@ function FullScreenHook() {
                                     m: 1
                                 }}
                             >
-                                Connected Wallet: {account}
+                                Connected Wallet: {wallet}
                             </Typography>
                             <Typography
                                 component="h4"
@@ -187,7 +191,7 @@ function FullScreenHook() {
                                     m: 1
                                 }}
                             >
-                                Contract Address: {contractAddress}
+                                Contract Address: {menaceAddress}
                             </Typography>
                             <Copyright sx={{ mt: 1 }} />
                         </Box>
