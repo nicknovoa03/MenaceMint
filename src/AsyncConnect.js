@@ -8,15 +8,15 @@ function AsyncConnect() {
     const [contract, setContract] = useState();
     const [contractAddress, setContractAddress] = useState();
     const [web3, setWeb3] = useState();
-
+   
     async function connectWeb3() {
         try {
             // Get network provider and web3 instance.
             const web3 = await getWeb3();
-            setWeb3(web3);
+            setWeb3(window.web3);
 
             // Use web3 to get the user's accounts.
-            const accounts = await web3.eth.getAccounts();
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
             console.log("accounts:", accounts);
 
             // Get the contract instance.
