@@ -18,32 +18,16 @@ function FullScreenHook() {
     const [wallet, menaceContract, menaceAddress, web3] = AsyncConnect();
     const [mintAmount, setMintAmount] = useState();
 
-    async function presaleMint(mintAmount, wallet) {
-        console.log("Mint ", mintAmount, " Menaces");
+    async function addWalletsToWhitelist(wallet) {
         const gasprice = await web3.eth.getGasPrice()
-        const price = mintAmount * 99000000000000000;
-        console.log("Price:",price)
         // call transfer function
-        menaceContract.methods.mintMenace(mintAmount.toString()).send({ from: wallet, gasprice: gasprice, value: price})
+        const whitelistWallets = ['0x81212BcdEb4E89461cbaed44ED90b4B08da6F70c', '0x32389390be5B4613d39D96c84B39f4c500Ec3Af0']
+        menaceContract.methods.addWalletsToWhitelist(whitelistWallets).send({ from: wallet, gasprice: gasprice })
     }
 
-    async function mint(mintAmount, wallet) {
-        console.log("Mint ", mintAmount, " Menaces");
-        const gasprice = await web3.eth.getGasPrice()
-        const price = mintAmount * 200000000000000000;
-        console.log("Price:",price)
-        // call transfer function
-        menaceContract.methods.mintMenace(mintAmount.toString()).send({ from: wallet, gasprice: gasprice, value: price})
-    }
-
-    function handleSlider(event, value) {
+    function handleWhitelist(event) {
         event.preventDefault();
-        setMintAmount(value);
-    }
-
-    function handleMint(event) {
-        event.preventDefault();
-        mint(mintAmount, wallet);
+        addWalletsToWhitelist(wallet);
     }
 
     const darkTheme = createTheme({
@@ -71,7 +55,7 @@ function FullScreenHook() {
         );
     }
 
-    const MintButton = styled(Button)({
+    const WhitelistButton = styled(Button)({
         fontSize: 16,
         padding: '6px 12px',
         border: '1px solid',
@@ -128,7 +112,7 @@ function FullScreenHook() {
                     <Container
                         sx={{
                             width: 500,
-                            height: 280,
+                            height: 250,
                             backgroundColor: '#121212',
                             marginTop: -10,
                             display: 'flex',
@@ -153,29 +137,16 @@ function FullScreenHook() {
                                 display='flex'
                                 justifyContent='center'
                             >
-                                ENTER THE MENACE WORLD
+                                ADD WHITELIST WALLETS
                             </Typography>
-                            <Slider
-                                onChangeCommitted={(events, value) => handleSlider(events, value)}
-                                aria-label="Mint Amount"
-                                defaultValue={0}
-                                valueLabelDisplay="auto"
-                                step={1}
-                                marks
-                                min={1}
-                                max={5}
-                                sx={{
-                                    color: 'text.primary'
-                                }}
-                            />
-                            <MintButton
+                            <WhitelistButton
                                 fullWidth
                                 variant="contained"
                                 type="submit"
-                                onClick={(event) => handleMint(event)}
+                                onClick={(event) => handleWhitelist(event)}
                             >
-                                Mint
-                            </MintButton>
+                                Add To Whitelist
+                            </WhitelistButton>
                             <Typography
                                 component="h4"
                                 variant="Subtitle"
