@@ -12,6 +12,7 @@ import Slider from '@mui/material/Slider';
 import MintBackground from './MenaceSamples/MintBackground.jpg'
 
 import AsyncConnect from './AsyncConnect';
+import { getImageListItemUtilityClass } from '@mui/material';
 
 function FullScreenHook() {
 
@@ -20,8 +21,8 @@ function FullScreenHook() {
 
     async function presaleMint(mintAmount, wallet) {
         console.log("Mint ", mintAmount, " Menaces");
-        const gasprice = await web3.eth.getGasPrice()
-        const price = mintAmount * 99000000000000000;
+        var gasprice = await web3.eth.getGasPrice()
+        var price = mintAmount * 99000000000000000;
         console.log("Price:",price)
         // call transfer function
         menaceContract.methods.mintMenace(mintAmount.toString()).send({ from: wallet, gasprice: gasprice, value: price})
@@ -29,11 +30,14 @@ function FullScreenHook() {
 
     async function mint(mintAmount, wallet) {
         console.log("Mint ", mintAmount, " Menaces");
-        const gasprice = await web3.eth.getGasPrice()
-        const price = mintAmount * 200000000000000000;
+        var gasprice = await web3.eth.getGasPrice()
+        var gaslimit = menaceContract.methods.mintMenace(mintAmount.toString()).estimateGas({ from: wallet, gasprice: gasprice})
+        console.log("Gas Limit:",gaslimit)
+        console.log("Gas:",gasprice)
+        var price = mintAmount * 200000000000000000;
         console.log("Price:",price)
         // call transfer function
-        menaceContract.methods.mintMenace(mintAmount.toString()).send({ from: wallet, gasprice: gasprice, value: price})
+        menaceContract.methods.mintMenace(mintAmount.toString()).send({ from: wallet, gas: 21000, value: price})
     }
 
     function handleSlider(event, value) {

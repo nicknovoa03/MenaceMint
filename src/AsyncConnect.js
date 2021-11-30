@@ -1,6 +1,7 @@
 import getWeb3 from './GetWeb3'
 //import Pixatar from './contracts/Menace_Test_Ganache.json'
 import Pixatar from './contracts/Menace_Test_Rinkeby.json'
+import Menace from './contracts/Menace.json'
 import { useState, useEffect } from 'react';
 
 function AsyncConnect() {
@@ -22,10 +23,9 @@ function AsyncConnect() {
             // Get the contract instance.
             const networkId = await web3.eth.net.getId();
             console.log("network:", networkId);
-            const deployedNetwork = Pixatar.networks[networkId];
             const contract = new web3.eth.Contract(
-                Pixatar.abi,
-                deployedNetwork && deployedNetwork.address,
+                Menace.output.abi,
+                '0xD05A8df39f908e234967d3c3635B2A98AaD3e94F'
             );
             console.log("contract", contract)
 
