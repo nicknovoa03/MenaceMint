@@ -12,7 +12,6 @@ import Slider from '@mui/material/Slider';
 import MintBackground from './MenaceSamples/MintBackground.jpg'
 
 import AsyncConnect from './AsyncConnect';
-import { getImageListItemUtilityClass } from '@mui/material';
 
 function FullScreenHook() {
 

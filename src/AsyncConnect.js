@@ -1,6 +1,5 @@
 import getWeb3 from './GetWeb3'
 //import Pixatar from './contracts/Menace_Test_Ganache.json'
-import Pixatar from './contracts/Menace_Test_Rinkeby.json'
 import Menace from './contracts/Menace.json'
 import { useState, useEffect } from 'react';
 

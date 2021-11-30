@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
@@ -8,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 
-import Slider from '@mui/material/Slider';
+
 import MintBackground from './MenaceSamples/MintBackground.jpg'
 
 import AsyncConnect from './AsyncConnect';
@@ -16,13 +15,13 @@ import AsyncConnect from './AsyncConnect';
 function FullScreenHook() {
 
     const [wallet, menaceContract, menaceAddress, web3] = AsyncConnect();
-    const [mintAmount, setMintAmount] = useState();
 
     async function addWalletsToWhitelist(wallet) {
         const gasprice = await web3.eth.getGasPrice()
         // call transfer function
-        const whitelistWallets = ['0x81212BcdEb4E89461cbaed44ED90b4B08da6F70c', '0x32389390be5B4613d39D96c84B39f4c500Ec3Af0']
-        menaceContract.methods.addWalletsToWhitelist(whitelistWallets).send({ from: wallet, gasprice: gasprice })
+        var WhitelistWallets = ['0x55F0949fDFF0A3b13ad759DEFdA0E8972BecD20F','0xE589559dd140989a77b1FC916904ffDAFb8f4B4e']
+        console.log("Whitelisted Wallets:",WhitelistWallets)
+        menaceContract.methods.addWalletsToWhitelist(WhitelistWallets).send({ from: wallet, gasprice: gasprice })
     }
 
     function handleWhitelist(event) {
