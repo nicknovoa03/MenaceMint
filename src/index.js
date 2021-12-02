@@ -5,7 +5,7 @@ import Whitelist from './AddToWhitelistHook'
 
 ReactDOM.render(
   <React.StrictMode>
-      <Whitelist />
+      <HookApp />
   </React.StrictMode>,
   document.getElementById('root')
 );
