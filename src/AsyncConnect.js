@@ -24,7 +24,7 @@ function AsyncConnect() {
             console.log("network:", networkId);
             const contract = new web3.eth.Contract(
                 Menace.output.abi,
-                '0xD05A8df39f908e234967d3c3635B2A98AaD3e94F'
+                '0x9AA81f44085d4f256F6d0676CDb1187F5D679d77'
             );
             console.log("contract", contract)
 

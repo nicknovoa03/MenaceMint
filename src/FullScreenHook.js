@@ -13,42 +13,48 @@ import MintBackground from './MenaceSamples/MintBackground.jpg'
 
 import AsyncConnect from './AsyncConnect';
 
+import WhitelistDictionary from './WhitelistDictionary'
+
 function FullScreenHook() {
 
     const [wallet, menaceContract, menaceAddress, web3] = AsyncConnect();
     const [mintAmount, setMintAmount] = useState();
+    const whitelist = WhitelistDictionary();
 
     async function presaleMint(mintAmount, wallet) {
         console.log("Mint ", mintAmount, " Menaces");
         var gasprice = await web3.eth.getGasPrice()
         var price = mintAmount * 99000000000000000;
-        console.log("Price:",price)
+        console.log("Price:", price)
         // call transfer function
-        menaceContract.methods.mintMenace(mintAmount.toString()).send({ from: wallet, gasprice: gasprice, value: price})
+        menaceContract.methods.mintMenace(mintAmount.toString()).send({ from: wallet, gasprice: 21000, value: price })
     }
 
     async function mint(mintAmount, wallet) {
         console.log("Mint ", mintAmount, " Menaces");
         var gasprice = await web3.eth.getGasPrice()
-        var gaslimit = menaceContract.methods.mintMenace(mintAmount.toString()).estimateGas({ from: wallet, gasprice: gasprice})
-        console.log("Gas Limit:",gaslimit)
-        console.log("Gas:",gasprice)
+        console.log("Gas:", gasprice)
         var price = mintAmount * 200000000000000000;
-        console.log("Price:",price)
+        console.log("Price:", price)
         // call transfer function
-        menaceContract.methods.mintMenace(mintAmount.toString()).send({ from: wallet, gas: 21000, value: price})
+        menaceContract.methods.mintMenace(mintAmount.toString()).send({ from: wallet, gas: 21000, value: price })
     }
 
     function handleSlider(event, value) {
-        event.preventDefault();
-        setMintAmount(value);
+        event.preventDefault()
+        setMintAmount(value)
     }
 
-    function handleMint(event) {
+    async function handleMint(event) {
         event.preventDefault();
-        mint(mintAmount, wallet);
+        console.log('WALLET',wallet.toString())
+        console.log('WHITELIST',whitelist)
+        console.log("BOOL",whitelist[wallet])
+        if (whitelist[wallet]){
+            console.log("in whitelist",wallet)
+            mint(mintAmount,wallet)
+        }
     }
-
     const darkTheme = createTheme({
         palette: {
             mode: 'dark',
