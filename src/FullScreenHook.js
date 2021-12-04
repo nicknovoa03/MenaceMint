@@ -15,6 +15,10 @@ import AsyncConnect from './AsyncConnect';
 
 import WhitelistDictionary from './WhitelistDictionary'
 
+import { ethers } from 'ethers';
+import { parseEther } from '@ethersproject/units';
+
+
 function FullScreenHook() {
 
     const [wallet, menaceContract, menaceAddress, web3] = AsyncConnect();
@@ -22,22 +26,15 @@ function FullScreenHook() {
     const whitelist = WhitelistDictionary();
 
     async function presaleMint(mintAmount, wallet) {
-        console.log("Mint ", mintAmount, " Menaces");
-        var gasprice = await web3.eth.getGasPrice()
-        var price = mintAmount * 99000000000000000;
-        console.log("Price:", price)
+        var price = ethers.utils.parseEther("0.09") * mintAmount
         // call transfer function
-        menaceContract.methods.mintMenace(mintAmount.toString()).send({ from: wallet, gasprice: 21000, value: price })
+        menaceContract.methods.mintMenaceWhitelist(mintAmount.toString()).send({ from: wallet, value: price })
     }
 
     async function mint(mintAmount, wallet) {
-        console.log("Mint ", mintAmount, " Menaces");
-        var gasprice = await web3.eth.getGasPrice()
-        console.log("Gas:", gasprice)
-        var price = mintAmount * 200000000000000000;
-        console.log("Price:", price)
+        var price = ethers.utils.parseEther("0.2") * mintAmount
         // call transfer function
-        menaceContract.methods.mintMenace(mintAmount.toString()).send({ from: wallet, gas: 21000, value: price })
+        menaceContract.methods.mintMenace(mintAmount.toString()).send({ from: wallet, value: price })
     }
 
     function handleSlider(event, value) {
@@ -47,9 +44,6 @@ function FullScreenHook() {
 
     async function handleMint(event) {
         event.preventDefault();
-        console.log('WALLET',wallet.toString())
-        console.log('WHITELIST',whitelist)
-        console.log("BOOL",whitelist[wallet])
         if (whitelist[wallet]){
             console.log("in whitelist",wallet)
             mint(mintAmount,wallet)
