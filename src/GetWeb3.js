@@ -7,7 +7,7 @@ const getWeb3 = async () => {
   }
   else {
     const provider = new Web3.providers.HttpProvider(
-      'https://rinkeby.infura.io/v3/bad8cc770bef49dc88683bf2290205c8'
+      'https://mainnet.infura.io/v3/bad8cc770bef49dc88683bf2290205c8'
     );
     return new Web3(provider);
   }

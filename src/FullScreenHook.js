@@ -26,13 +26,13 @@ function FullScreenHook() {
     const whitelist = WhitelistDictionary();
 
     async function presaleMint(mintAmount, wallet) {
-        var price = ethers.utils.parseEther("0.09") * mintAmount
+        var price = ethers.utils.parseEther("0.09")['_hex'] * mintAmount
         // call transfer function
         menaceContract.methods.mintMenaceWhitelist(mintAmount.toString()).send({ from: wallet, value: price })
     }
 
     async function mint(mintAmount, wallet) {
-        var price = ethers.utils.parseEther("0.2") * mintAmount
+        var price = ethers.utils.parseEther("0.2")['_hex'] * mintAmount
         // call transfer function
         menaceContract.methods.mintMenace(mintAmount.toString()).send({ from: wallet, value: price })
     }
@@ -44,10 +44,8 @@ function FullScreenHook() {
 
     async function handleMint(event) {
         event.preventDefault();
-        if (whitelist[wallet]){
-            console.log("in whitelist",wallet)
-            mint(mintAmount,wallet)
-        }
+        presaleMint(mintAmount,wallet)
+
     }
     const darkTheme = createTheme({
         palette: {

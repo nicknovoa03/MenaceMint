@@ -1,6 +1,7 @@
 import getWeb3 from './GetWeb3'
 //import Pixatar from './contracts/Menace_Test_Ganache.json'
 import Menace from './contracts/Menace.json'
+//import Menace from './contracts/Menace_Test_Rinkeby.json'
 import { useState, useEffect } from 'react';
 
 function AsyncConnect() {
@@ -23,8 +24,8 @@ function AsyncConnect() {
             const networkId = await web3.eth.net.getId();
             console.log("network:", networkId);
             const contract = new web3.eth.Contract(
-                Menace.output.abi,
-                '0x9AA81f44085d4f256F6d0676CDb1187F5D679d77'
+                Menace.abi,
+                "0x6Da0D84695a6d3E0C1f8d526838abDc6aCab69d7"
             );
             console.log("contract", contract)
 
