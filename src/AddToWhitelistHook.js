@@ -6,8 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
-
-
+import fs from 'fs'
 import MintBackground from './MenaceSamples/MintBackground.jpg'
 
 import AsyncConnect from './AsyncConnect';
@@ -16,17 +15,8 @@ function FullScreenHook() {
 
     const [wallet, menaceContract, menaceAddress, web3] = AsyncConnect();
 
-    async function addWalletsToWhitelist(wallet) {
-        const gasprice = await web3.eth.getGasPrice()
-        // call transfer function
-        var WhitelistWallets = ['0x55F0949fDFF0A3b13ad759DEFdA0E8972BecD20F','0xE589559dd140989a77b1FC916904ffDAFb8f4B4e']
-        console.log("Whitelisted Wallets:",WhitelistWallets)
-        menaceContract.methods.addWalletsToWhitelist(WhitelistWallets).send({ from: wallet, gasprice: gasprice })
-    }
-
     function handleWhitelist(event) {
         event.preventDefault();
-        addWalletsToWhitelist(wallet);
     }
 
     const darkTheme = createTheme({

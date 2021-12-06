@@ -6,6 +6,12 @@
 .pnp.js
 package-lock.json
 
+#tests
+/src/contracts/test
+
+# old published ipfs
+/src/s
+
 # testing
 /coverage
 
